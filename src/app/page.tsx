@@ -19,6 +19,7 @@ export default function Home() {
                 <p className={"text-sm"}>
                     this is also a practice project for me to learn more stuff about frontend development,
                     before i tackle the beast that is my main project management project.
+                    0.0
                 </p>
             </div>
         </div>
