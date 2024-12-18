@@ -41,3 +41,7 @@ yarn-error.log*
 next-env.d.ts
 
 .idea/
+.idea/logwork.iml
+.idea/.gitignore
+.idea/vcs.xml
+.idea/modules.xml
