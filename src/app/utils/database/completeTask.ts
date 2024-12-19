@@ -9,7 +9,7 @@ export default async function completeTask(task_id: number) {
                 }
             }
         )
-        if (!complete) {
+        if (!task) {
             console.log("this shouldn't even be humanly possible bruh :sob:")
             throw new Error("NONEXISTENT_TASK")
             //it shouldn't even be possible to reach here but i need to do error handling anyways
