@@ -1,22 +1,29 @@
-import {User} from "@prisma/client"
 import {prisma} from "@/app/utils/database/db";
 
 export default async function createTask({
-                                             user,
+                                             user_name,
                                              task_name,
                                              task_description,
                                              due_at,
 
                                          }:
                                          {
-                                             user: User,
+                                             user_name: string,
                                              task_name: string,
                                              task_description: string | null,
                                              due_at: Date
                                          }) {
 
     try{
-        const user_id = user.id;
+        const user = await prisma.user.findUnique(
+            {
+                where: {
+                    username: user_name,
+                }
+            }
+        )
+
+        const user_id = user.id
 
         const result = await prisma.task.create({
             data: {
