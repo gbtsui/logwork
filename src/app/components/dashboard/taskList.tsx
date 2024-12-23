@@ -9,7 +9,7 @@ export default function TaskList({tasks}: {tasks: Task[]}) {
             {
                 tasks &&
                 tasks.map(task =>
-                    <div>
+                    <div key={task.id} className={"border border-foreground p-2 m-1 w-44 h-44"}>
                         <h1 className={"text-xl"}>{task.task_name}</h1>
                         <p>{task.task_description}</p>
                         <TaskCompleteButton task_id={task.id} />
