@@ -1,3 +1,5 @@
+import LoginButton from "@/app/components/homepage/loginButton"
+
 export default function Home() {
     return (
         <div>
@@ -6,12 +8,13 @@ export default function Home() {
                     logwork
                 </h1>
                 <h2 className={"text-2xl p-4 text-center"}>
-                    like a worklog but backwards
+                    log your work before you do it
                 </h2>
                 <p className={"text-xs text-right -rotate-3 p-3 m-2"}>
                     the precursor to <a href={"https://tasktree.gbtsui.dev"} className={"text-foreground"}>tasktree</a>!
                 </p>
             </div>
+            <LoginButton />
             <div className={"page p-2 text-center mt-1"}>
                 <p className={"text-lg"}>
                     logwork is a minimalist, plant-based to-do list for your day.
