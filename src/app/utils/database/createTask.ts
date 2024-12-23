@@ -1,50 +1,45 @@
+"use server"
 import {prisma} from "@/app/utils/database/db";
+import getSession from "@/app/utils/authentication/getSession";
 
-export default async function createTask({
-                                             user_name,
-                                             task_name,
-                                             task_description,
-                                             due_at,
+export default async function createTask(formData: FormData) {
 
-                                         }:
-                                         {
-                                             user_name: string,
-                                             task_name: string,
-                                             task_description: string | null,
-                                             due_at: Date
-                                         }) {
+    const session = await getSession();
 
-    try{
-        const user = await prisma.user.findUnique(
-            {
-                where: {
-                    username: user_name,
-                }
+    const user = await prisma.user.findUnique(
+        {
+            where: {
+                username: session?.user?.name as string
             }
-        )
-
-        const user_id = user.id
-
-        const result = await prisma.task.create({
-            data: {
-                task_name: task_name,
-                task_description: task_description,
-                owner_id: user_id,
-                due_at: due_at,
-                completed: false
-            }
-        })
-
-        if (result) {
-            return result
-        } else {
-            return null
         }
-    } catch (error) {
-        console.error(error)
-        if (error instanceof Error){
-            return error
+    )
+
+    const user_id = user?.id
+    const due_at: Date = new Date(formData.get("due_at") as string)
+
+    console.log({
+        task_name: formData.get("task_name") as string,
+        task_description: formData.get("task_description") as string,
+        owner_id: user_id as number,
+        due_at: due_at
+    })
+    await prisma.task.create({
+        data: {
+            task_name: formData.get("task_name") as string,
+            task_description: formData.get("task_description") as string,
+            owner_id: user_id as number,
+            due_at: due_at
         }
-    }
+    })
+
+
+    //console.log(result)
+
+    //if (result) {
+    //    return result
+    //} else {
+    //   return null
+    //}
 
 }
+
