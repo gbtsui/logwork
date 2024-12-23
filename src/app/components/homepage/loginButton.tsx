@@ -41,7 +41,7 @@ export default function LoginButton() {
             )}
             {!session && (
                 <div>
-                    <Link href={"/api/auth/signin"} passHref className={"bg-foreground text-darkforestgreen"}>Login</Link>
+                    <Link href={"/api/auth/signin"} passHref className={"bg-foreground text-background p-3 rounded-bl-lg rounded-tr-lg"}>Login</Link>
                     <p className={"text-xs"}>haha, get it? log-in? it's funny. please laugh</p>
                 </div>
             )}
