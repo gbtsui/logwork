@@ -17,3 +17,10 @@ export const emailSchema = object({
         .max(255, "email must be less than 255 characters")
         .email("invalid email address"),
 })
+
+export const signInSchema = object({
+    email: string({required_error: "email is required"})
+        .max(255, "email must be less than 255 characters")
+        .email("invalid email address"),
+    password: string({required_error: "password is required"})
+})
