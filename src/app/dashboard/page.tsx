@@ -1,20 +1,16 @@
 "use server"
-import TaskList from "@/app/components/dashboard/taskList"
 import getTaskList from "@/app/utils/database/getTaskList";
-import CreateTaskForm from "@/app/components/dashboard/createTask";
-export default async function Dashboard() {
-    const user_id = 1
-    const tasks = await getTaskList(user_id)
+import getSession from "@/app/utils/authentication/getSession";
+import DashboardContainer from "@/app/components/dashboard/dashboardContainer";
 
+export default async function Dashboard() {
+    const session = await getSession()
+    const user_id = session?.user?.id //shut up typescript :sob:
+
+    const tasks = (await getTaskList(user_id)).sort((a, b) => a.id - b.id)
     return (
-        <div className={"m-2"}>
-            <h1 className={"text-7xl text-center p-3 m-3"}>
-                dashboard
-            </h1>
-            <h2 className={"ml-8"}>
-                <TaskList tasks={tasks} />
-                <CreateTaskForm/>
-            </h2>
+        <div>
+            <DashboardContainer/>
         </div>
     )
 }

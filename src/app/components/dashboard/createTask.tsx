@@ -1,12 +1,10 @@
 import createTask from "@/app/utils/database/createTask"
 
-export default function CreateTaskForm() {
+export default async function CreateTaskForm() {
     async function create(formData: FormData) {
        "use server"
        await createTask(formData)
     }
-
-
 
     return (
         <form action={create} className={"text-background m-2"}> {/*my brain is fried*/}
