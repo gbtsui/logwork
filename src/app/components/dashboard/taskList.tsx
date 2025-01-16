@@ -4,29 +4,37 @@ import {Task} from "@prisma/client";
 import TaskCompleteButton from "@/app/components/dashboard/taskCompleteButton";
 import {useTaskStore} from "@/app/utils/store/taskStore"
 import {useEffect, useState} from "react";
+import {useShallow} from "zustand/react/shallow";
 
 export default function TaskList() {
-    const tasks: Task[] = useTaskStore((state) => state.tasks);
-    const fetchTaskList = useTaskStore((state) => state.fetchTaskList);
+    const tasks: Task[] = useTaskStore(useShallow((state) => state.tasks));
+    const fetchTaskList = useTaskStore(useShallow((state) => state.fetchTaskList));
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchTaskListEffect = async () => {
-            setLoading(true);
-            await fetchTaskList();
+            try {
+                setLoading(true);
+                await fetchTaskList();
+            } catch (error) {
+                console.error(error);
+            } finally {
+                setLoading(false);
+            }
         }
         fetchTaskListEffect();
-        setLoading(false);
-    })
+    }, [fetchTaskList]);
+
+    if (loading) {
+        return (
+            <div>
+                <h1 className={"text-3xl text-center"}>loading...</h1>
+            </div>
+        )
+    }
 
     return (
         <div className="flex flex-row">
-            {
-                loading &&
-                (<div>
-                    <h1 className={"text-3xl text-center"}>loading...</h1>
-                </div>)
-            }
             {
                 tasks &&
                 tasks.map(task =>
