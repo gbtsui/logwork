@@ -5,13 +5,17 @@ import TaskCompleteButton from "@/app/components/dashboard/taskCompleteButton";
 import {useTaskStore} from "@/app/utils/store/taskStore"
 import {useEffect, useState} from "react";
 import {useShallow} from "zustand/react/shallow";
+import randomLoadingText from "../../../../public/funsies/loadingTexts";
+
 
 export default function TaskList() {
     const tasks: Task[] = useTaskStore(useShallow((state) => state.tasks));
-    const fetchTaskList = useTaskStore(useShallow((state) => state.fetchTaskList));
+    const fetchTaskList: () => Promise<void> = useTaskStore(useShallow((state) => state.fetchTaskList));
     const [loading, setLoading] = useState(true);
+    let [loadingText, setLoadingText] = useState("also loading tips...")
 
     useEffect(() => {
+        setLoadingText(randomLoadingText())
         const fetchTaskListEffect = async () => {
             try {
                 setLoading(true);
@@ -25,10 +29,13 @@ export default function TaskList() {
         fetchTaskListEffect();
     }, [fetchTaskList]);
 
+
+
     if (loading) {
         return (
-            <div>
-                <h1 className={"text-3xl text-center"}>loading...</h1>
+            <div className={"text-3xl text-center"}>
+                <h1>loading...</h1>
+                <h2 className={"text-xl"}>{loadingText}</h2>
             </div>
         )
     }
