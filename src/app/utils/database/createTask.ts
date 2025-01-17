@@ -23,7 +23,7 @@ export default async function createTask(formData: FormData) {
         owner_id: user_id as number,
         due_at: due_at
     })
-    await prisma.task.create({
+    return await prisma.task.create({
         data: {
             task_name: formData.get("task_name") as string,
             task_description: formData.get("task_description") as string,
@@ -31,15 +31,5 @@ export default async function createTask(formData: FormData) {
             due_at: due_at
         }
     })
-
-
-    //console.log(result)
-
-    //if (result) {
-    //    return result
-    //} else {
-    //   return null
-    //}
-
 }
 
