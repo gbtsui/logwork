@@ -4,17 +4,14 @@ import {Task} from "@prisma/client";
 import TaskCompleteButton from "@/app/components/dashboard/taskCompleteButton";
 import {useTaskStore} from "@/app/utils/store/taskStore"
 import {useEffect, useState} from "react";
-import randomLoadingText from "../../../../public/funsies/loadingTexts";
-
+import LoadingSkeleton from "@/app/components/universal/loadingSkeleton";
 
 export default function TaskList() {
     const tasks: Task[] = useTaskStore((state) => state.tasks);
     const fetchTaskList: () => Promise<void> = useTaskStore((state) => state.fetchTaskList);
     const [loading, setLoading] = useState(true);
-    let [loadingText, setLoadingText] = useState("");
 
     useEffect(() => {
-        setLoadingText(randomLoadingText())
 
         const fetchTaskListEffect = async () => {
             try {
@@ -32,12 +29,7 @@ export default function TaskList() {
 
 
     if (loading) {
-        return (
-            <div className={"text-3xl text-center"}>
-                <h1>loading...</h1>
-                <h2 className={"text-xl"}>{loadingText}</h2>
-            </div>
-        )
+        return <LoadingSkeleton />;
     }
 
     return (
