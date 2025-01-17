@@ -1,5 +1,6 @@
 "use client"
 import TaskList from "@/app/components/dashboard/taskList";
+import CreateTaskForm from "@/app/components/dashboard/createTaskForm";
 
 
 export default function DashboardContainer() {
@@ -11,7 +12,7 @@ export default function DashboardContainer() {
             </h1>
             <h2 className={"ml-8"}>
                 <TaskList/>
-                {/*<CreateTaskForm/>*/}
+                <CreateTaskForm/>
             </h2>
         </div>
     )

@@ -4,18 +4,18 @@ import {Task} from "@prisma/client";
 import TaskCompleteButton from "@/app/components/dashboard/taskCompleteButton";
 import {useTaskStore} from "@/app/utils/store/taskStore"
 import {useEffect, useState} from "react";
-import {useShallow} from "zustand/react/shallow";
 import randomLoadingText from "../../../../public/funsies/loadingTexts";
 
 
 export default function TaskList() {
-    const tasks: Task[] = useTaskStore(useShallow((state) => state.tasks));
-    const fetchTaskList: () => Promise<void> = useTaskStore(useShallow((state) => state.fetchTaskList));
+    const tasks: Task[] = useTaskStore((state) => state.tasks);
+    const fetchTaskList: () => Promise<void> = useTaskStore((state) => state.fetchTaskList);
     const [loading, setLoading] = useState(true);
-    let [loadingText, setLoadingText] = useState("also loading tips...")
+    let [loadingText, setLoadingText] = useState("");
 
     useEffect(() => {
         setLoadingText(randomLoadingText())
+
         const fetchTaskListEffect = async () => {
             try {
                 setLoading(true);
@@ -41,7 +41,7 @@ export default function TaskList() {
     }
 
     return (
-        <div className="flex flex-row">
+        <div className="flex flex-row flex-wrap">
             {
                 tasks &&
                 tasks.map(task =>

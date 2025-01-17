@@ -15,18 +15,16 @@ interface TaskStore {
 
 export const useTaskStore = create<TaskStore>((set) => ({
     tasks: [],
-    addTask: (task: Task) => set((state) => ({tasks: state.tasks, task})),
+    addTask: (task: Task) => set((state) => ({tasks: [...state.tasks, task]})),
     modifyTask: (task: Task) => console.log("Not Implemented Yet, tried to modify task ", task),
-    deleteTask: (task: Task) => set((state) => ({tasks: state.tasks.filter((existingTask) => existingTask.id !== task.id)})),
+    deleteTask: (task: Task) => set((state) => ({tasks: [...state.tasks.filter((existingTask) => existingTask.id !== task.id)]})),
     completeTask: (task: Task) => console.log("Not Implemented Yet, tried to complete task ", task),
 
     fetchTaskList: async () => {
         const session = await getSession()
         // @ts-ignore
         const userId: number = session?.user?.id
-        console.log(userId)
         const taskList = await getTaskList(userId)
-        console.log(taskList)
 
         set({tasks: taskList})
     }
