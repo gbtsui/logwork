@@ -1,14 +1,16 @@
 "use client"
 import completeTask from "@/app/utils/database/completeTask";
+import {useTaskStore} from "@/app/utils/store/taskStore";
 
-export default function TaskCompleteButton({task_id}: {task_id: number}) {
-
+export default function TaskCompleteButton({task_id, completed}: {task_id: number, completed: boolean}) {
+    const storeCompleteTask = useTaskStore((state) => state.completeTask);
     return (
         <button onClick={ async () => {
-            completeTask(task_id)
+            const result = await completeTask(task_id)
+            storeCompleteTask(result)
             }
         }>
-           Mark Completed
+            {completed ? <p>Complete</p> : <p>Mark Completed</p>}
         </button>
     )
 }

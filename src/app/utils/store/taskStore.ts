@@ -13,12 +13,19 @@ interface TaskStore {
     fetchTaskList: () => Promise<void>,
 }
 
+
 export const useTaskStore = create<TaskStore>((set) => ({
     tasks: [],
     addTask: (task: Task) => set((state) => ({tasks: [...state.tasks, task]})),
     modifyTask: (task: Task) => console.log("Not Implemented Yet, tried to modify task ", task),
-    deleteTask: (task: Task) => set((state) => ({tasks: [...state.tasks.filter((existingTask) => existingTask.id !== task.id)]})),
-    completeTask: (task: Task) => console.log("Not Implemented Yet, tried to complete task ", task),
+    deleteTask: (task: Task) => set((state) => ({
+        tasks: [...state.tasks.filter((existingTask) => existingTask.id !== task.id)]
+    })),
+    completeTask: (task: Task) => set((state) => ({
+        tasks: state.tasks.map((existingTask: Task) =>
+            task.id === existingTask.id ? { ...existingTask, completed: !existingTask.completed } : existingTask
+        ),
+    })),
 
     fetchTaskList: async () => {
         const session = await getSession()
