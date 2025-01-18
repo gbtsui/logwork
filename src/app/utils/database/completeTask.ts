@@ -11,10 +11,9 @@ export default async function completeTask(task_id: number) {
     )
 
     const complete = task?.completed
-
     //kinda gross ngl but it is what it is
 
-    const result = await prisma.task.update({
+    return prisma.task.update({
         where: {
             id: task_id
         },
@@ -22,10 +21,4 @@ export default async function completeTask(task_id: number) {
             completed: !complete
         }
     })
-
-    if (result) {
-        return result
-    } else {
-        return null
-    }
 }
