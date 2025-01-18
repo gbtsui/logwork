@@ -1,3 +1,4 @@
+"use server"
 import {prisma} from "@/app/utils/database/db";
 
 export default async function getTaskList(user_id: number) {

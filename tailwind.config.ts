@@ -11,6 +11,11 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+
+        darkforestgreen: "var(--darkforestgreen)",
+        forestgreen: "var(--forestgreen)",
+        eggshell: "var(--eggshell)",
+        cream: "var(--cream)",
       },
     },
   },

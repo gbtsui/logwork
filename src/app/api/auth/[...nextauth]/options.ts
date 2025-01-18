@@ -33,12 +33,14 @@ export const options: NextAuthOptions = {
             async authorize(credentials) {
                 try {
                     const {email, password} = (await signInSchema.parseAsync(credentials))
+                    console.log(email + password)
 
                     const user = await prisma.user.findUnique({
                         where: {
                             email: email
                         }
                     })
+                    console.log(user)
 
                     if (!user) {
                         return null
@@ -48,6 +50,7 @@ export const options: NextAuthOptions = {
                     if (!pwMatch) {
                         return null
                     }
+                    console.log(pwMatch)
                     return user
                 } catch (err) {
                     if (err instanceof ZodError) {
