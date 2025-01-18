@@ -5,6 +5,7 @@ import TaskCompleteButton from "@/app/components/dashboard/taskCompleteButton";
 import {useTaskStore} from "@/app/utils/store/taskStore"
 import {useEffect, useState} from "react";
 import randomLoadingText from "../../../../public/funsies/loadingTexts";
+//import Modal from "@/app/components/dashboard/modal";
 
 
 export default function TaskList() {
