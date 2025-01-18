@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import {Atkinson_Hyperlegible} from "next/font/google";
 import "./globals.css";
+import "./global_icons.css"
 import {NextFontWithVariable} from "next/dist/compiled/@next/font";
 
 const atkinsonHyperlegible: NextFontWithVariable = Atkinson_Hyperlegible({
