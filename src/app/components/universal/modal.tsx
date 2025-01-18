@@ -1,7 +1,8 @@
 "use client"
 import React, {ReactNode} from "react";
+import CloseButton from "@/app/components/universal/closeButton";
 
-export default function Modal({ isOpen, onClose, title, children}: {isOpen: boolean, onClose: () => void, title: string, children: ReactNode}) {
+export default function Modal({ isOpen, onClose, title, children, buttons}: {isOpen: boolean, onClose: () => void, title: string, children: ReactNode, buttons?: ReactNode}) {
     if (!isOpen) {
         return null
     }
@@ -18,10 +19,9 @@ export default function Modal({ isOpen, onClose, title, children}: {isOpen: bool
                 <div className="space-y-4">
                     {children}
                 </div>
-                <div className="flex justify-end space-x-2 pt-4">
-                    <button className="bg-foreground text-background px-4 py-2 rounded hover:bg-red-600 hover:text-foreground hover:px-5 hover:py-3 transition-all" onClick={onClose}>
-                        Close
-                    </button>
+                <div className="flex justify-evenly space-x-2 pt-4">
+                    {buttons}
+                    <CloseButton onClose={onClose} />
                 </div>
             </div>
         </div>
