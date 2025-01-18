@@ -8,7 +8,7 @@ interface TaskStore {
     addTask: (task: Task) => void,
     modifyTask: (task: Task) => void,
     deleteTask: (task: Task) => void,
-    completeTask: (task: Task) => void,
+    completeTask: (taskId: number) => void,
 
     fetchTaskList: () => Promise<void>,
 }
@@ -21,9 +21,9 @@ export const useTaskStore = create<TaskStore>((set) => ({
     deleteTask: (task: Task) => set((state) => ({
         tasks: [...state.tasks.filter((existingTask) => existingTask.id !== task.id)]
     })),
-    completeTask: (task: Task) => set((state) => ({
+    completeTask: (taskId: number) => set((state) => ({
         tasks: state.tasks.map((existingTask: Task) =>
-            task.id === existingTask.id ? { ...existingTask, completed: !existingTask.completed } : existingTask
+            taskId === existingTask.id ? { ...existingTask, completed: !existingTask.completed } : existingTask
         ),
     })),
 

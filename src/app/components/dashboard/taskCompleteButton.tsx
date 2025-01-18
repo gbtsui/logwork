@@ -7,8 +7,8 @@ export default function TaskCompleteButton({task_id, completed}: { task_id: numb
 
     return (
         <button onClick={async () => {
-            const result = await completeTask(task_id)
-            storeCompleteTask(result)
+            storeCompleteTask(task_id)
+            await completeTask(task_id)
         }
         }>
             {completed ? <span className={"material-symbols-outlined fill-eggshell"}>check_circle</span> : <span className={"material-symbols-outlined"}>radio_button_unchecked</span>}
