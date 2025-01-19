@@ -40,11 +40,11 @@ export default function TaskEntry({task}: {task: Task}) {
                 <p>are you sure you want to delete "{task.task_name}"?</p>
             </Modal>
 
-            <div className={`border-2 border-background hover:border-foreground rounded-bl-lg rounded-tr-lg p-2 m-1 w-1/6 max-h-96 h-96 overflow-y-auto transition-colors ${/*dueSoon? "bg-foreground" : "bg-background"*/ "bg-background"}`}>
+            <div className={`border-2 border-background hover:border-foreground rounded-bl-lg rounded-tr-lg p-2 m-1 w-1/6 min-w-60 max-h-96 h-96 overflow-y-auto transition-colors ${/*dueSoon? "bg-foreground" : "bg-background"*/ "bg-background"}`}>
                 <div className={"flex justify-between items-center"}>
                     <TaskCompleteButton task_id={task.id} completed={task.completed}/>
                     <button onClick={() => setIsOpen(true)}>
-                        <span className={"material-symbols-outlined hover:text-red-600 transition-colors"}>delete</span>
+                        <span className={"material-symbols-outlined hover:bg-red-600 rounded-bl-lg rounded-tr-lg p-1 transition-colors"}>delete</span>
                     </button>
                 </div>
                 <h1 className={"text-xl"}>{task.task_name}</h1>

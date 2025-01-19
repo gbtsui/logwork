@@ -1,5 +1,5 @@
 export default function getTimeDifference(time: number) {
-    const days = Math.floor(Math.abs(time / 86400000));
+    const days = Math.round(Math.abs(time / 86400000));
     const hours = Math.floor(Math.abs(time / 3600000));
     const minutes = Math.floor(Math.abs(time / 60000));
 
