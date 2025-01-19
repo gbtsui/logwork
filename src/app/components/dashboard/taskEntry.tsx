@@ -18,12 +18,8 @@ export default function TaskEntry({task}: {task: Task}) {
     useEffect(() => {
         if ((task.due_at.getTime() - Date.now()) < 0) {
             setOverdue(true);
-            console.log(task.task_name, "overdue", (task.due_at.getTime() - Date.now()))
-        } else if ((task.due_at.getTime() - Date.now()) < 3600000) {
+        } else if ((task.due_at.getTime() - Date.now()) < 3600000) { //can replace this value with a custom one later :3
             setDueSoon(true);
-            console.log(task.task_name, " due soon", task.due_at.getTime() - Date.now())
-        } else {
-            console.log(task.task_name, "due eventually", task.due_at.getTime() - Date.now());
         }
     })
 
@@ -64,6 +60,7 @@ export default function TaskEntry({task}: {task: Task}) {
                 <div className={"max-h-svh"}>
                     <p>{task.task_description}</p>
                     <p className={"text-xs"}>Created at {task.created_at.toString()}</p>
+                    <p className={"text-xs"}>Due at {task.due_at.toString()}</p>
                 </div>
             </div>
         </>
