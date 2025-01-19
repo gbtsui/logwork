@@ -6,6 +6,7 @@ import {useEffect, useState} from "react";
 import Modal from "@/app/components/universal/modal";
 import deleteTask from "@/app/utils/database/deleteTask";
 import {useTaskStore} from "@/app/utils/store/taskStore";
+import getTimeDifference from "@/app/utils/extra/getTimeDifference";
 
 export default function TaskEntry({task}: {task: Task}) {
     const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -52,13 +53,16 @@ export default function TaskEntry({task}: {task: Task}) {
                 </div>
                 <h1 className={"text-xl"}>{task.task_name}</h1>
                 {
-                    dueSoon && !task.completed && <h2 className={"text-lg text-amber-300"}>due soon!</h2>
+                    dueSoon && !task.completed && <h2 className={"text-lg text-amber-300"}>{getTimeDifference(task.due_at.getTime() - Date.now())}</h2>
                 }
                 {
-                    overdue && !task.completed && <h2 className={"text-lg text-red-500"}>overdue!</h2>
+                    overdue && !task.completed && <h2 className={"text-lg text-red-500"}>{getTimeDifference(task.due_at.getTime() - Date.now())}</h2>
+                }
+                {
+                    !dueSoon && !overdue && !task.completed && <h2 className={"text-lg"}>{getTimeDifference(task.due_at.getTime() - Date.now())}</h2>
                 }
                 <div className={"max-h-svh"}>
-                <p>{task.task_description}</p>
+                    <p>{task.task_description}</p>
                     <p className={"text-xs"}>Created at {task.created_at.toString()}</p>
                 </div>
             </div>
