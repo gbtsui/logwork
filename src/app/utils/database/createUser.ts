@@ -1,16 +1,14 @@
+"use server"
 import hashPassword from "@/app/utils/authentication/hashPassword";
 import {prisma} from "@/app/utils/database/db";
-import {ZodError} from "zod"
 import {userSchema} from "@/app/utils/authentication/validation";
 
-class CreateUserError extends Error {}
 
 export default async function createUser(credentials: {
     username: string;
     password: string;
     email: string;
 }){
-    try {
         const {username, email, password} = await userSchema.parseAsync(credentials);
 
         const otherUserWithUsername = await prisma.user.findUnique({
@@ -19,7 +17,7 @@ export default async function createUser(credentials: {
             }
         })
         if (otherUserWithUsername) {
-            throw new CreateUserError("USERNAME_IN_USE");
+            return new Error("USERNAME_IN_USE");
         }
         const otherUserWithEmail = await prisma.user.findUnique({
             where: {
@@ -27,7 +25,7 @@ export default async function createUser(credentials: {
             }
         })
         if (otherUserWithEmail) {
-            throw new CreateUserError("EMAIL_IN_USE");
+            return new Error("EMAIL_IN_USE");
         }
 
         const hashedPassword = await hashPassword(password)
@@ -40,15 +38,5 @@ export default async function createUser(credentials: {
         })
         console.log(user)
         return user
-    } catch (error) {
-        console.error(error)
-        if (error instanceof CreateUserError) {
-            return error
-        } else if (error instanceof ZodError) {
-            return error
-        } else {
-            return null
-        }
-    }
 
 }
