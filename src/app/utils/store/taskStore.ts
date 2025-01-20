@@ -11,6 +11,7 @@ interface TaskStore {
     completeTask: (taskId: number) => void,
 
     sortListByDueDate: () => void,
+    sortListByCreationDate: () => void,
 
     fetchTaskList: () => Promise<void>,
 }
@@ -31,6 +32,9 @@ export const useTaskStore = create<TaskStore>((set) => ({
 
     sortListByDueDate: () => set((state) => ({
         tasks: state.tasks.toSorted((a, b) => a.due_at.getTime() - b.due_at.getTime())
+    })),
+    sortListByCreationDate: () => set((state) => ({
+        tasks: state.tasks.toSorted((a, b) => a.created_at.getTime() - b.created_at.getTime())
     })),
 
     fetchTaskList: async () => {
