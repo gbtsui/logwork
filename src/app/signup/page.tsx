@@ -11,13 +11,13 @@ export default function SignupPage() {
         setLoading(true)
         console.log("set loading")
         const getResult = async () => {
-            //const result = await createUser({username: formData.get("username") as string, password: formData.get("password") as string, email: formData.get("email") as string})
-            //console.log(result)
-            //if (result instanceof Error) {
-            //    setError(result);
-            //} else {
-            //    return
-            //}
+            const result = await createUser({username: formData.get("username") as string, password: formData.get("password") as string, email: formData.get("email") as string})
+            console.log(result)
+            if (result instanceof Error) {
+                setError(result);
+            } else {
+                return
+            }
         }
         getResult();
         setLoading(false)
@@ -41,8 +41,8 @@ export default function SignupPage() {
                 </div>
 
                 <div className={"hover:-rotate-4"}>
-                        <input type="submit" value="sign up"
-                               className={"p-3 text-darkforestgreen text-xl bg-eggshell hover:bg-forestgreen hover:text-eggshell hover:p-5 transition-all mt-7 rounded-bl-xl rounded-tr-xl"}
+                        <input type="submit" value={loading? "loading...":"signup"}
+                               className={"p-3 text-darkforestgreen text-xl bg-eggshell hover:bg-forestgreen hover:text-eggshell hover:p-5 transition-all mt-7 rounded-bl-xl rounded-tr-xl disabled:hover:p-3"}
                         disabled={loading}/>
 
                 </div>
