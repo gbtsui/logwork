@@ -49,7 +49,7 @@ export default function CreateTaskButton() {
                                 </div>
                                 <div>
                                     <label className={"text-cream"}>task description</label><br/>
-                                    <textarea name={"task_description"} rows={4} cols={30} required maxLength={1023}
+                                    <textarea name={"task_description"} rows={4} cols={30} maxLength={1023}
                                               className={"rounded-bl-lg rounded-tr-lg p-0.5"}/>
                                 </div>
                                 <div>
