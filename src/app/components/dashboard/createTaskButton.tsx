@@ -23,7 +23,8 @@ export default function CreateTaskButton() {
 
     return (
         <>
-            <button onClick={() => setIsOpen(true)} className={"text-center text-darkforestgreen bg-cream p-3 text-3xl rounded-tr-3xl rounded-bl-3xl"}>
+            <button onClick={() => setIsOpen(true)}
+                    className={"text-center text-darkforestgreen bg-cream p-3 text-3xl rounded-tr-3xl rounded-bl-3xl"}>
                 <span>+ new task</span>
             </button>
 

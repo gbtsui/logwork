@@ -26,19 +26,19 @@ export const useTaskStore = create<TaskStore>((set) => ({
     })),
     completeTask: (taskId: number) => set((state) => ({
         tasks: state.tasks.map((existingTask: Task) =>
-            taskId === existingTask.id ? { ...existingTask, completed: !existingTask.completed } : existingTask
+            taskId === existingTask.id ? {...existingTask, completed: !existingTask.completed} : existingTask
         ),
     })),
 
     sortListByDueDate: (up: boolean) => set((state) => {
-        return up?
+        return up ?
             {tasks: state.tasks.toSorted((a, b) => a.due_at.getTime() - b.due_at.getTime())}
             :
             {tasks: state.tasks.toSorted((a, b) => b.due_at.getTime() - a.due_at.getTime())}
 
     }),
     sortListByCreationDate: (up: boolean) => set((state) => {
-        return up?
+        return up ?
             {tasks: state.tasks.toSorted((a, b) => a.created_at.getTime() - b.created_at.getTime())}
             :
             {tasks: state.tasks.toSorted((a, b) => b.created_at.getTime() - a.created_at.getTime())}
@@ -48,7 +48,7 @@ export const useTaskStore = create<TaskStore>((set) => ({
         const session = await getSession()
         // @ts-ignore
         const username = session?.user?.name
-        const taskList = await getTaskList(username)
+        const taskList = await getTaskList(username as string)
 
         if (taskList instanceof Error) {
             return taskList
