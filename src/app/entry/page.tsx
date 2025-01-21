@@ -24,7 +24,11 @@ export default function SignupPage() {
     function create(formData: FormData) {
         setLoading(true)
         const getResult = async () => {
-            const result = await createUser({username: formData.get("username") as string, password: formData.get("password") as string, email: formData.get("email") as string})
+            const result = await createUser({
+                username: formData.get("username") as string,
+                password: formData.get("password") as string,
+                email: formData.get("email") as string
+            })
             console.log(result)
             if (result instanceof Error) {
                 setError(result);
@@ -46,20 +50,17 @@ export default function SignupPage() {
     function login(formData: FormData) {
         const getResult = async () => {
             setLoading(true)
-            console.log(loading)
             const result = await signIn('credentials', {
                 email: formData.get("email"),
                 password: formData.get("password"),
                 redirect: false
             })
-            console.log(result)
             if (result?.error) {
-                (result.error == "CredentialsSignin")? setError(new Error("incorrect credentials, try again!")) : setError(new Error(result?.error))
+                (result.error == "CredentialsSignin") ? setError(new Error("incorrect credentials, try again!")) : setError(new Error(result?.error))
             } else {
                 redirect("/dashboard")
             }
             setLoading(false)
-            console.log(loading)
         }
         getResult();
     }
@@ -68,18 +69,21 @@ export default function SignupPage() {
         <div className={"justify-items-center "}>
             <h1 className="text-9xl p-5 m-3">entry point</h1>
             <div className="flex justify-space-between">
-                <button onClick={() => setLoginMode(true)} className={`p-3 mx-2 ${loginMode? "bg-forestgreen rounded-tr-3xl rounded-b-md":"bg-darkforestgreen"}`}>
+                <button onClick={() => setLoginMode(true)}
+                        className={`p-3 mx-2 ${loginMode ? "bg-forestgreen rounded-tr-3xl rounded-b-md" : "bg-darkforestgreen"}`}>
                     login
                 </button>
-                <button onClick={() => setLoginMode(false)} className={`p-3 mx-2 ${loginMode? "bg-darkforestgreen":"bg-forestgreen rounded-tr-3xl rounded-b-md"}`}>
+                <button onClick={() => setLoginMode(false)}
+                        className={`p-3 mx-2 ${loginMode ? "bg-darkforestgreen" : "bg-forestgreen rounded-tr-3xl rounded-b-md"}`}>
                     signup
                 </button>
             </div>
             {loading ? (
-                <div className={"fixed inset-0 bg-black bg-opacity-60 overflow-hidden h-screen w-full z-50 text-center items-center"}>
+                <div
+                    className={"fixed inset-0 bg-black bg-opacity-60 overflow-hidden h-screen w-full z-50 text-center items-center"}>
                     <h1 className={"text-3xl text-eggshell"}>signing in...</h1>
                 </div>
-            ): null}
+            ) : null}
             {loginMode ? (
                 <div className={"bg-forestgreen p-10 rounded-tr-3xl rounded-bl-3xl"}>
                     <form action={login} className={"justify-items-center text-center text-xl"}>
@@ -173,7 +177,8 @@ export default function SignupPage() {
 
                              */
                         }
-                        <label className={"text-red-500"}>{error ? <p className={"max-w-fit"}>Error: {error.message}</p> : null}</label>
+                        <label className={"text-red-500"}>{error ?
+                            <p className={"max-w-fit"}>Error: {error.message}</p> : null}</label>
                     </div>
                 </div>
             )}

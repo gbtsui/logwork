@@ -2,14 +2,17 @@
 
 import {useState} from "react";
 
-export default function SortDropdown({sortByDueDate, sortByCreationDate}:{sortByDueDate: (direction: boolean) => void, sortByCreationDate: (direction: boolean) => void}) {
+export default function SortDropdown({sortByDueDate, sortByCreationDate}: {
+    sortByDueDate: (direction: boolean) => void,
+    sortByCreationDate: (direction: boolean) => void
+}) {
     const [isOpen, setIsOpen] = useState(false);
     const [up, setUp] = useState<boolean>(false);
     const [sortMethod, setSortMethod] = useState("random")
 
     return (
         <div className={"dropdown relative justify-items-center"}>
-            <button onClick={()=> {
+            <button onClick={() => {
                 setUp(!up)
                 if (sortMethod == "due date") {
                     sortByDueDate(up)

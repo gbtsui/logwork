@@ -2,7 +2,6 @@ import {useEffect, useState} from "react";
 import randomLoadingText from "../../../../public/funsies/loadingTexts";
 
 
-
 export default function LoadingSkeleton() {
     let [loadingText, setLoadingText] = useState("");
 

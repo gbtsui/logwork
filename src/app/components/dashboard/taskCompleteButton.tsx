@@ -2,7 +2,7 @@
 import completeTask from "@/app/utils/database/completeTask";
 import {useTaskStore} from "@/app/utils/store/taskStore";
 
-export default function TaskCompleteButton({task_id, completed}: { task_id: number, completed: boolean}) {
+export default function TaskCompleteButton({task_id, completed}: { task_id: number, completed: boolean }) {
     const storeCompleteTask = useTaskStore((state) => state.completeTask);
 
     return (

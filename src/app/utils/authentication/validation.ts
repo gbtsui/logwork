@@ -9,7 +9,8 @@ export const userSchema = object({
     password: string({required_error: "password is required"})
 })
 export const passwordSchema = object({
-    password: string({required_error: "password is required"})
+    old_password: string({required_error: "password is required"}),
+    new_password: string({required_error: "password is required"}),
 })
 
 export const emailSchema = object({
