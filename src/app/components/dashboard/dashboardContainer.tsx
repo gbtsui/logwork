@@ -13,10 +13,10 @@ export default function DashboardContainer() {
             </h1>
             <div className={"text-xl text-center p-3 flex justify-evenly"}>
                 <button onClick={() => setMode("tasks")}
-                        className={`p-2 rounded-tr-lg rounded-bl-lg ${mode=="tasks"? "bg-darkforestgreen underline":"bg-forestgreen"}`}>tasks
+                        className={`p-2 rounded-tr-lg rounded-bl-lg ${mode == "tasks" ? "bg-darkforestgreen underline" : "bg-forestgreen"}`}>tasks
                 </button>
                 <button onClick={() => setMode("settings")}
-                        className={`p-2 rounded-tr-lg rounded-bl-lg ${mode=="settings"? "bg-darkforestgreen underline":"bg-forestgreen"}`}>settings
+                        className={`p-2 rounded-tr-lg rounded-bl-lg ${mode == "settings" ? "bg-darkforestgreen underline" : "bg-forestgreen"}`}>settings
                 </button>
 
             </div>

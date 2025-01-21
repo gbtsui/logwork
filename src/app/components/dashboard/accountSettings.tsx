@@ -31,11 +31,13 @@ export default function AccountSettings() {
                 }}>
                     <div>
                         <label>password</label><br/>
-                        <input name="password" type={"password"} className={"text-darkforestgreen bg-eggshell rounded-tr-lg rounded-bl-lg"}/>
+                        <input name="password" type={"password"}
+                               className={"text-darkforestgreen bg-eggshell rounded-tr-lg rounded-bl-lg"}/>
                     </div>
                     <div>
                         <label>type "DELETE ME"</label><br/>
-                        <input type={"text"} className={"text-darkforestgreen bg-eggshell rounded-tr-lg rounded-bl-lg"} onChange={(e) => setDeleteMeText(e.target.value)}/>
+                        <input type={"text"} className={"text-darkforestgreen bg-eggshell rounded-tr-lg rounded-bl-lg"}
+                               onChange={(e) => setDeleteMeText(e.target.value)}/>
                     </div>
                     <div>
                         {
@@ -46,7 +48,8 @@ export default function AccountSettings() {
                     </div>
                 </form>
             </Modal>
-            <Modal isOpen={changePasswordIsOpen} onClose={() => setChangePasswordIsOpen(false)} title={"change password"}>
+            <Modal isOpen={changePasswordIsOpen} onClose={() => setChangePasswordIsOpen(false)}
+                   title={"change password"}>
                 <form className={"justify-items-center"} action={async (formData) => {
                     const session = await getSession()
                     const result = await changePassword({
@@ -69,13 +72,17 @@ export default function AccountSettings() {
                         <label>new password</label><br/>
                         <input name={"new-password"} type={"password"}
                                className={"text-darkforestgreen bg-eggshell rounded-tr-lg rounded-bl-lg"}
-                                onChange={(e) => {setPasswordText(e.target.value)}}/>
+                               onChange={(e) => {
+                                   setPasswordText(e.target.value)
+                               }}/>
                     </div>
                     <div>
                         <label>confirm new password</label><br/>
                         <input name={"new-password-confirm"} type={"password"}
                                className={"text-darkforestgreen bg-eggshell rounded-tr-lg rounded-bl-lg"}
-                                onChange={(e) => {setConfirmationText(e.target.value)}}/>
+                               onChange={(e) => {
+                                   setConfirmationText(e.target.value)
+                               }}/>
                     </div>
                     <div>
                         <input type={"submit"} name={"change-password"} value={"change password"}

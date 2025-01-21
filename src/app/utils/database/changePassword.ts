@@ -15,7 +15,7 @@ export default async function changePassword(credentials: {
         const {email} = await emailSchema.parseAsync(credentials);
         const {old_password, new_password} = await passwordSchema.parseAsync(credentials);
 
-        const user = await prisma.user.findUnique({ where: { email } });
+        const user = await prisma.user.findUnique({where: {email}});
 
         const pwMatch = await bcrypt.compare(old_password, user?.password as string);
 
