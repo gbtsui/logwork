@@ -47,7 +47,7 @@ export const useTaskStore = create<TaskStore>((set) => ({
     fetchTaskList: async () => {
         const session = await getSession()
         // @ts-ignore
-        const username: number = session?.user?.name
+        const username = session?.user?.name
         const taskList = await getTaskList(username)
 
         if (taskList instanceof Error) {
