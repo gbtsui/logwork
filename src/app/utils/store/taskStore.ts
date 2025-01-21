@@ -13,7 +13,7 @@ interface TaskStore {
     sortListByDueDate: (up: boolean) => void,
     sortListByCreationDate: (up: boolean) => void,
 
-    fetchTaskList: () => Promise<void>,
+    fetchTaskList: () => Promise<void | Error>,
 }
 
 
@@ -50,6 +50,10 @@ export const useTaskStore = create<TaskStore>((set) => ({
         const userId: number = session?.user?.id
         const taskList = await getTaskList(userId)
 
-        set({tasks: taskList})
+        if (taskList instanceof Error) {
+            return taskList
+        }
+
+        return set({tasks: taskList})
     }
 }))
