@@ -8,7 +8,7 @@ import deleteTask from "@/app/utils/database/deleteTask";
 import {useTaskStore} from "@/app/utils/store/taskStore";
 import getTimeDifference from "@/app/utils/extra/getTimeDifference";
 
-export default function TaskEntry({task}: {task: Task}) {
+export default function TaskEntry({task, dueSoonThreshold}: { task: Task, dueSoonThreshold: number }) {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const deleteTaskFromStore = useTaskStore((state) => state.deleteTask);
 
@@ -18,7 +18,7 @@ export default function TaskEntry({task}: {task: Task}) {
     useEffect(() => {
         if ((task.due_at.getTime() - Date.now()) < 0) {
             setOverdue(true);
-        } else if ((task.due_at.getTime() - Date.now()) < 3600000) { //can replace this value with a custom one later :3
+        } else if ((task.due_at.getTime() - Date.now()) < dueSoonThreshold) { //can replace this value with a custom one later :3
             setDueSoon(true);
         }
     })

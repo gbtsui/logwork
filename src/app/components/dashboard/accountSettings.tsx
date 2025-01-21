@@ -3,19 +3,46 @@
 import {signOut} from "next-auth/react";
 import {redirect} from "next/navigation";
 import Modal from "@/app/components/universal/modal";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import deleteUser from "@/app/utils/database/deleteUser";
 import getSession from "@/app/utils/authentication/getSession";
 import changePassword from "@/app/utils/database/changePassword";
+import LoadingSkeleton from "@/app/components/universal/loadingSkeleton";
+import {UserSettings} from "@prisma/client";
+import {useSettingsStore} from "@/app/utils/store/settingsStore";
+import setUserSettings from "@/app/utils/database/setUserSettings";
 
 export default function AccountSettings() {
     const [deleteAccountIsOpen, setDeleteAccountIsOpen] = useState(false);
     const [changePasswordIsOpen, setChangePasswordIsOpen] = useState(false);
     const [deleteMeText, setDeleteMeText] = useState("");
 
+    const [loading, setLoading] = useState(true);
+    const settings = useSettingsStore((state) => state.settings);
+    const setSettings = useSettingsStore((state) => state.setSettings)
+    const fetchSettings = useSettingsStore((state) => state.fetchSettings);
+
     const [passwordText, setPasswordText] = useState("");
     const [confirmationText, setConfirmationText] = useState("");
 
+    useEffect(() => {
+        const initialize = async () => {
+            try {
+                setLoading(true);
+
+                await fetchSettings()
+            } catch (error) {
+                console.error(error)
+            } finally {
+                setLoading(false)
+            }
+        }
+        initialize()
+    }, [getSession])
+
+    if (loading) {
+        return <LoadingSkeleton/>
+    }
 
     return (
         <>
@@ -89,6 +116,32 @@ export default function AccountSettings() {
                 <div className="p-5 text-center">
                     <h1 className={"text-4xl"}>account settings</h1>
                 </div>
+
+                <form action={async (formData) => {
+                    const newSettings: UserSettings = {
+                        owner_id: settings.owner_id,
+                        due_soon_threshold: formData.get("due_soon_threshold") as unknown as number * 1 //don't ask why
+                    }
+                    setSettings(newSettings)
+                    await setUserSettings(newSettings)
+                }}>
+                    <div className="p-5 my-5 flex flex-row justify-between">
+                        <div>
+                            <label className={"text-xl"}>dueSoon threshold: </label>
+                            <input name="due_soon_threshold" type={"text"}
+                                   defaultValue={settings.due_soon_threshold}
+                                   className={"text-darkforestgreen p-1 mx-1 bg-eggshell rounded-tr-lg rounded-bl-lg"}/>
+                            <br/>
+                            <label className={"text-sm"}>(the time left on a task before it's marked as due soon.
+                                measured in seconds)</label>
+                        </div>
+                        <div>
+                            <input type={"submit"} value={"save"}
+                                   className={"mt-3 p-3 bg-cream text-darkforestgreen rounded-tr-2xl rounded-bl-2xl text-2xl"}/>
+                        </div>
+                    </div>
+                </form>
+
                 <div className={"flex justify-evenly"}>
                     <button
                         className={"bg-darkforestgreen hover:bg-cream hover:text-darkforestgreen hover:p-5 rounded-bl-lg rounded-tr-lg text-eggshell p-4 text-xl transition-all"}
@@ -105,9 +158,6 @@ export default function AccountSettings() {
                         className={"bg-red-500 hover:bg-red-800 hover:p-5 rounded-bl-lg rounded-tr-lg text-eggshell p-4 text-xl transition-all"}
                         onClick={() => setDeleteAccountIsOpen(true)}>delete account
                     </button>
-                </div>
-                <div>
-                    more options coming soon (change dueSoon settings)
                 </div>
             </div>
         </>

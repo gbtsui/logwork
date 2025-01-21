@@ -7,6 +7,7 @@ import LoadingSkeleton from "@/app/components/universal/loadingSkeleton";
 import TaskEntry from "@/app/components/dashboard/taskEntry";
 import CreateTaskButton from "@/app/components/dashboard/createTaskButton";
 import SortDropdown from "@/app/components/dashboard/sortDropdown";
+import {useSettingsStore} from "@/app/utils/store/settingsStore";
 //import Modal from "@/app/components/dashboard/modal";
 
 
@@ -19,13 +20,25 @@ export default function TaskList() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<Error | null>(null);
 
+    const settings = useSettingsStore((state) => state.settings);
+
+
+    //const [settings, setSettings] = useState<UserSettings>()
+
     useEffect(() => {
-        const fetchTaskListEffect = async () => {
+        const initialize = async () => {
             try {
                 setLoading(true);
-                const result: void | Error = await fetchTaskList();
-                if (result instanceof Error) {
-                    setError(result)
+
+                /*
+                const session = await getSession()
+                const username = session?.user?.name as string
+                setSettings(await getUserSettings(username))
+                 */
+
+                const taskList: void | Error = await fetchTaskList();
+                if (taskList instanceof Error) {
+                    setError(taskList)
                 }
             } catch (error) {
                 console.error(error);
@@ -33,14 +46,15 @@ export default function TaskList() {
                 setLoading(false);
             }
         }
-        fetchTaskListEffect();
+        initialize();
     }, [fetchTaskList]);
+
 
     const overdueTasks = tasks.filter(task => {
         return (task.due_at.getTime() - Date.now()) < 0 && !task.completed
     }).length
     const dueSoonTasks = tasks.filter(task => {
-        return ((task.due_at.getTime() - Date.now()) < 3600000 && (task.due_at.getTime() - Date.now()) > 0 && !task.completed)
+        return ((task.due_at.getTime() - Date.now()) < settings.due_soon_threshold * 1000 && (task.due_at.getTime() - Date.now()) > 0 && !task.completed)
     }).length
     const completedTasks = tasks.filter(task => {
         return task.completed
@@ -79,7 +93,8 @@ export default function TaskList() {
                         <div className="flex flex-row flex-wrap justify-center w-full mb-32">
                             {
                                 tasks &&
-                                tasks.map(task => <TaskEntry task={task} key={task.id}/>)
+                                tasks.map(task => <TaskEntry task={task} key={task.id}
+                                                             dueSoonThreshold={settings.due_soon_threshold * 1000}/>)
                             }
                             {
                                 tasks.length === 0 && !loading &&

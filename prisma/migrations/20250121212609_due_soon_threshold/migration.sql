@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "User"
+    ADD COLUMN "dueSoonThreshold" INTEGER NOT NULL DEFAULT 3600000;
