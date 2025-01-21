@@ -1,11 +1,13 @@
 "use server"
 import {prisma} from "@/app/utils/database/db";
 
-export default async function getTaskList(user_id: number) {
+export default async function getTaskList(username: string) {
     try {
+        const owner = await prisma.user.findUnique({where: {username}})
+
         const tasks = await prisma.task.findMany({
             where: {
-                owner_id: user_id,
+                owner_id: owner?.id,
             }
         })
 
