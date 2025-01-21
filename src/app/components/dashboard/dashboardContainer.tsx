@@ -1,10 +1,26 @@
 "use client"
 import TaskList from "@/app/components/dashboard/taskList";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import AccountSettings from "@/app/components/dashboard/accountSettings";
+import {useSettingsStore} from "@/app/utils/store/settingsStore";
+
 
 export default function DashboardContainer() {
     const [mode, setMode] = useState<string>("tasks")
+
+    const fetchSettings = useSettingsStore((state) => state.fetchSettings);
+
+    useEffect(() => {
+        const initialize = async () => {
+            try {
+                await fetchSettings()
+            } catch (error) {
+                console.error(error);
+            }
+        }
+        initialize();
+    })
+
 
     return (
         <div>
