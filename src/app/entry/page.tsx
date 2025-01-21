@@ -46,20 +46,17 @@ export default function SignupPage() {
     function login(formData: FormData) {
         const getResult = async () => {
             setLoading(true)
-            console.log(loading)
             const result = await signIn('credentials', {
                 email: formData.get("email"),
                 password: formData.get("password"),
                 redirect: false
             })
-            console.log(result)
             if (result?.error) {
                 (result.error == "CredentialsSignin")? setError(new Error("incorrect credentials, try again!")) : setError(new Error(result?.error))
             } else {
                 redirect("/dashboard")
             }
             setLoading(false)
-            console.log(loading)
         }
         getResult();
     }
