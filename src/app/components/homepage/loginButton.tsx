@@ -35,7 +35,7 @@ export default function LoginButton() {
             )}
             {session && (
                 <div className={"text-darkforestgreen"}>
-                    <p className={"mb-3"}>Welcome, {session?.user?.name}!</p>
+                    <p className={"mb-3 text-cream"}>Welcome, {session?.user?.name}!</p>
                     <Link href={"/dashboard"} passHref className={"bg-foreground text-background p-3 rounded-bl-lg rounded-tr-lg"}>dashboard</Link>
                 </div>
             )}

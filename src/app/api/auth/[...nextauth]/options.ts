@@ -8,6 +8,13 @@ import {ZodError} from "zod";
 import {User} from "@prisma/client";
 import {JWT} from "next-auth/jwt";
 
+declare module "next-auth/jwt" {
+    interface JWT {
+        user?: User
+    }
+}
+
+
 export const options: NextAuthOptions = {
     providers: [
         /*
@@ -33,14 +40,12 @@ export const options: NextAuthOptions = {
             async authorize(credentials) {
                 try {
                     const {email, password} = (await signInSchema.parseAsync(credentials))
-                    console.log(email + password)
 
                     const user = await prisma.user.findUnique({
                         where: {
                             email: email
                         }
                     })
-                    console.log(user)
 
                     if (!user) {
                         return null
@@ -50,7 +55,6 @@ export const options: NextAuthOptions = {
                     if (!pwMatch) {
                         return null
                     }
-                    console.log(pwMatch)
                     return user
                 } catch (err) {
                     if (err instanceof ZodError) {
@@ -78,5 +82,11 @@ export const options: NextAuthOptions = {
             }
             return session
         }
+    },
+    pages: {
+        signIn: "/entry"
+    },
+    jwt: {
+        maxAge: 60 * 60 * 24 //1 day
     }
 }
