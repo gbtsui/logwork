@@ -35,7 +35,7 @@ export default function LoginButton() {
             )}
             {session && (
                 <div className={"text-darkforestgreen"}>
-                    <p className={"mb-3 text-cream"}>Welcome, {session?.user?.name}!</p>
+                    <p className={"mb-3 text-cream"}>welcome, {session?.user?.name}!</p>
                     <Link href={"/dashboard"} passHref
                           className={"bg-foreground text-background p-3 rounded-bl-lg rounded-tr-lg"}>dashboard</Link>
                 </div>
@@ -43,7 +43,8 @@ export default function LoginButton() {
             {!session && (
                 <div>
                     <Link href={"/api/auth/signin"} passHref
-                          className={"bg-foreground text-background p-3 rounded-bl-lg rounded-tr-lg"}>Login</Link>
+                          className={"bg-foreground text-background p-3 rounded-bl-lg rounded-tr-lg"}>login/sign
+                        up</Link>
                     <p className={"text-xs mt-5"}>haha, get it? log-in? it's funny. please laugh</p>
                 </div>
             )}

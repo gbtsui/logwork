@@ -14,6 +14,8 @@ model User {
   createdAt    DateTime      @default(now())
   password     String
   Tasks        Task[]
+  Logs         Log[]
+  LogSummaries LogSummary[]
   UserSettings UserSettings?
 }
 
@@ -32,4 +34,21 @@ model UserSettings {
   owner_id           Int  @id
   due_soon_threshold Int  @default(3600000)
   User               User @relation(fields: [owner_id], references: [id])
+}
+
+model Log {
+  id          Int      @id
+  owner_id    Int
+  owner       User     @relation(fields: [owner_id], references: [id])
+  log_content String   @db.VarChar(1023)
+  log_time    Int
+  created_at  DateTime @default(now())
+}
+
+model LogSummary {
+  id         Int      @id
+  owner_id   Int
+  owner      User     @relation(fields: [owner_id], references: [id])
+  content    String   @db.VarChar(1023)
+  created_at DateTime @default(now())
 }
