@@ -19,7 +19,7 @@ export default function TaskEntry({task, dueSoonThreshold}: { task: Task, dueSoo
     useEffect(() => {
         if ((task.due_at.getTime() - Date.now()) < 0) {
             setOverdue(true);
-        } else if ((task.due_at.getTime() - Date.now()) < dueSoonThreshold) { 
+        } else if ((task.due_at.getTime() - Date.now()) < dueSoonThreshold) {
             setDueSoon(true);
         }
     })
