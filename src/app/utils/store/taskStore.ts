@@ -19,7 +19,7 @@ interface TaskStore {
 
 export const useTaskStore = create<TaskStore>((set) => ({
     tasks: [],
-    addTask: (task: Task) => set((state) => ({tasks: [...state.tasks, task]})),
+    addTask: (task: Task) => set((state) => ({tasks: [task, ...state.tasks]})),
     modifyTask: (task: Task) => console.log("Not Implemented Yet, tried to modify task ", task),
     deleteTask: (task: Task) => set((state) => ({
         tasks: [...state.tasks.filter((existingTask) => existingTask.id !== task.id)]

@@ -3,7 +3,11 @@ import {prisma} from "@/app/utils/database/db";
 
 export default async function getTaskList(username: string) {
     try {
-        const owner = await prisma.user.findUnique({where: {username}})
+        const owner = await prisma.user.findUnique({
+            where: {
+                username: username
+            }
+        })
 
         const tasks = await prisma.task.findMany({
             where: {
