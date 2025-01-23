@@ -18,7 +18,7 @@ interface LogStore {
 
 export const useLogStore = create<LogStore>((set) => ({
     logs: [],
-    addLog: (log: Log) => set((state) => ({logs: [log, ...state.logs]})),
+    addLog: (log: Log) => set((state) => ({logs: [...state.logs, log]})),
     deleteLog: (log: Log) => set((state) => ({
         logs: [...state.logs.filter((existingLog) => existingLog.id !== log.id)],
     })),
@@ -35,7 +35,7 @@ export const useLogStore = create<LogStore>((set) => ({
             return logList
         }
 
-        return set({logs: logList})
+        return set({logs: logList?.toSorted((a, b) => b.created_at.getDate() - a.created_at.getDate())}) //does this even work?
     },
     fetchLogSummaryList: async () => {
         console.log("not implemented yet")

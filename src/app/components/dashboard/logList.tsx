@@ -24,10 +24,11 @@ export default function LogList() {
                 if (logList instanceof Error) {
                     console.error(logList)
                 }
+                //logs.sort((a, b) => a.created_at.getDate() - b.created_at.getDate())
             } catch (error) {
                 console.error(error)
             } finally {
-                setLoading(false)
+                setLoading(false);
             }
         }
         initialize();
@@ -43,9 +44,12 @@ export default function LogList() {
                 className={"flex justify-between p-2 pr-7 bg-forestgreen mx-7 my-3 rounded-tr-3xl rounded-bl-3xl align-middle"}>
                 <div>
                     last log at: {
-                    lastLog ? `${lastLog.getYear()}-${lastLog.getMonth() + 1}-${lastLog.getDate()}/${lastLog.getHours()}:${lastLog.getMinutes()} (${Math.round((Date.now() - lastLog.getTime()) / 360000) * 10} hours ago)`
+                    /*
+                    lastLog ? `${lastLog.getFullYear()}-${lastLog.getMonth() + 1}-${lastLog.getDate()}/${lastLog.getHours()}:${lastLog.getMinutes()} (${Math.round((Date.now() - lastLog.getTime()) / 360000) * 10} hours ago)`
                         :
                         "never :("
+                     */
+                    "haven't implemented this yet sorry"
                 }
                 </div>
                 <CreateLogButton setLastLog={setLastLogFunction}/>
