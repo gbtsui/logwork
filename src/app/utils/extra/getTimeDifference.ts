@@ -1,6 +1,6 @@
 export default function getTimeDifference(time: number) {
     const days = Math.round(Math.abs(time / 86400000));
-    const hours = Math.floor(Math.abs(time / 3600000));
+    const hours = time > 3600000 ? Math.round(Math.abs(time / 3600000)) : Math.floor(Math.abs(time / 3600000));
     const minutes = Math.round(Math.abs(time / 60000));
 
     if (time > 0) {
