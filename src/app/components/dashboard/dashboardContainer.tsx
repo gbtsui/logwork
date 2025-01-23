@@ -3,6 +3,7 @@ import TaskList from "@/app/components/dashboard/taskList";
 import {useEffect, useState} from "react";
 import AccountSettings from "@/app/components/dashboard/accountSettings";
 import {useSettingsStore} from "@/app/utils/store/settingsStore";
+import LogList from "@/app/components/dashboard/logList";
 
 
 export default function DashboardContainer() {
@@ -31,6 +32,9 @@ export default function DashboardContainer() {
                 <button onClick={() => setMode("tasks")}
                         className={`p-2 rounded-tr-lg rounded-bl-lg ${mode == "tasks" ? "bg-darkforestgreen underline" : "bg-forestgreen"}`}>tasks
                 </button>
+                <button onClick={() => setMode("logs")}
+                        className={`p-2 rounded-tr-lg rounded-bl-lg ${mode == "logs" ? "bg-darkforestgreen underline" : "bg-forestgreen"}`}>logs
+                </button>
                 <button onClick={() => setMode("settings")}
                         className={`p-2 rounded-tr-lg rounded-bl-lg ${mode == "settings" ? "bg-darkforestgreen underline" : "bg-forestgreen"}`}>settings
                 </button>
@@ -41,6 +45,9 @@ export default function DashboardContainer() {
             }
             {
                 mode === "settings" && <AccountSettings/>
+            }
+            {
+                mode === "logs" && <LogList/>
             }
         </div>
     )
