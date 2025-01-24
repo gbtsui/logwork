@@ -32,6 +32,7 @@ export default function SignupPage() {
             console.log(result)
             if (result instanceof Error) {
                 setError(result);
+                setLoading(false)
                 console.error(result)
                 return
             }
