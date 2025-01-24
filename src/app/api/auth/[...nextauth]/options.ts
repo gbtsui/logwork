@@ -37,11 +37,12 @@ export const options: NextAuthOptions = {
                     type: "password"
                 }
             },
-            async authorize(credentials) {
+            // @ts-ignore
+            async authorize(credentials): Promise<User | null> {
                 try {
                     const {email, password} = (await signInSchema.parseAsync(credentials))
 
-                    const user = await prisma.user.findUnique({
+                    const user: User | null = await prisma.user.findUnique({
                         where: {
                             email: email
                         }
@@ -68,7 +69,7 @@ export const options: NextAuthOptions = {
         })
     ],
     callbacks: {
-        jwt({token, user}: {token: JWT, user: User}){
+        jwt({token, user}: { token: JWT, user: User }): JWT {
             if (user) {
                 token.id = user.id;
                 token.name = user.username;
@@ -77,7 +78,7 @@ export const options: NextAuthOptions = {
         },
         session({session, token}){
             if (token.user) {
-                session.user.id = token.id
+                //session.user.id = token.id
                 session.user.name = token.name
             }
             return session
