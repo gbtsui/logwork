@@ -2,6 +2,7 @@ import {create} from "zustand"
 import {Log, LogSummary} from "@prisma/client"
 import getSession from "@/app/utils/authentication/getSession";
 import getLogList from "@/app/utils/database/getLogList";
+import getLogSummaryList from "@/app/utils/database/getLogSummaryList";
 
 interface LogStore {
     logs: Log[],
@@ -24,7 +25,7 @@ export const useLogStore = create<LogStore>((set) => ({
     })),
 
     logSummaries: [],
-    addLogSummary: (logSummary: LogSummary) => set((state) => ({logSummaries: [...state.logSummaries, logSummary]})),
+    addLogSummary: (logSummary: LogSummary) => set((state) => ({logSummaries: [logSummary, ...state.logSummaries]})),
 
     fetchLogList: async () => {
         const session = await getSession()
@@ -38,6 +39,10 @@ export const useLogStore = create<LogStore>((set) => ({
         return set({logs: logList?.toSorted((a, b) => b.created_at.getDate() - a.created_at.getDate())}) //does this even work?
     },
     fetchLogSummaryList: async () => {
-        console.log("not implemented yet")
+        const session = await getSession()
+        const username = session?.user?.name as string
+        const logSummaryList = await getLogSummaryList(username)
+
+        return set({logSummaries: logSummaryList?.toSorted((a, b) => b.created_at.getDate() - a.created_at.getDate())})
     },
 }))
