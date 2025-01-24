@@ -41,10 +41,9 @@ export default function SignupPage() {
                 password: formData.get("password"),
                 redirect: false
             })
-
+            setLoading(false)
         }
         getResult();
-        setLoading(false)
     }
 
     function login(formData: FormData) {

@@ -161,10 +161,10 @@ export default function AccountSettings() {
                             redirect("/entry")
                         }}>logout
                     </button>
-                    <button
+                    {/*<button
                         className={"bg-red-500 hover:bg-red-800 hover:p-5 rounded-bl-lg rounded-tr-lg text-eggshell p-4 text-xl transition-all"}
                         onClick={() => setDeleteAccountIsOpen(true)}>delete account
-                    </button>
+                    </button>*/}
                 </div>
             </div>
         </>
