@@ -1,4 +1,5 @@
-# logwork
+# logwork `alpha 1.0.0`
+
 A minimalistic, plant-based to-do list that tracks your tasks and motivates you to do them.
 
 ## raison d'etre
@@ -29,11 +30,11 @@ need to set up your own Supabase database. Also, please keep code readable and n
 ## roadmap
 - [x] Database Interfacing
 - [x] Dynamic Refreshing
-- [ ] Task Sorting
-- [ ] **Alpha Release**
+- [x] Task Sorting
+- [x] **Alpha Release**
 - [ ] Graphs
-- [ ] Time Logging
-- [ ] AI Summarizing
+- [x] Time Logging
+- [x] AI Summarizing
 - [ ] **Full Release**
 ## future ideas
 - [ ] Cool art?
